@@ -330,5 +330,28 @@ window.addEventListener('scroll', animateOnScrollStagger);
 window.addEventListener('load', animateOnScrollStagger);
 </script>
 
+<script>
+// Animate benefit bullets with stagger
+document.addEventListener("DOMContentLoaded", function() {
+    const bullets = document.querySelectorAll('.benefit-list li');
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if(entry.isIntersecting) {
+                bullets.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('show');
+                    }, index * 150); // 150ms stagger
+                });
+                obs.disconnect(); // run once
+            }
+        });
+    }, { threshold: 0.1 });
+
+    if(bullets.length > 0) observer.observe(bullets[0]);
+});
+</script>
+            
+    
 </body>
 </html>
