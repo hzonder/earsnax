@@ -49,37 +49,34 @@
             font-size: 1.75rem;
         }
 
-        /* Benefit list */
         .benefit-list {
             list-style: none;
             padding: 0;
-            margin: 0 0 2rem 0; /* spacing below bullets for CTA */
+            margin: 0 0 2rem 0; /* space below bullets for CTA */
+            max-width: 3xl;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .benefit-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            font-size: 1.125rem;  /* slightly larger for readability */
-            line-height: 1.45;
-            color: #374151;        /* dark gray for better contrast */
+            position: relative;
+            padding-left: 1.75rem;   /* space for bullet */
             margin-bottom: 0.75rem;
-            opacity: 0;            /* start hidden for scroll animation */
+            font-size: 1.125rem;     /* default text size */
+            line-height: 1.6;        /* better line spacing for mobile */
+            color: #374151;          /* dark gray */
+            opacity: 0;              /* hidden initially for scroll animation */
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
-        .benefit-list li.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         .benefit-list li::before {
             content: "•";
+            position: absolute;
+            left: 0;
+            top: 0.2rem;            /* vertically aligns bullet with text */
             font-size: 1.5rem;
-            line-height: 1;
-            color: #ff4e00;        /* orange accent */
-            margin-top: 0.1rem;
+            color: #ff4e00;         /* orange accent */
         }
 
         /* CTA eyebrow above button */
