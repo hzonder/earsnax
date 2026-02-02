@@ -313,7 +313,7 @@ async function handleSubmit(event) {
 
 // Staggered scroll animation for bullets
 function animateOnScrollStagger() {
-    const elements = document.querySelectorAll('.benefit-list li');
+    const elements = document.querySelectorAll('.benefit-list li.scroll-fade-up');
     const windowBottom = window.innerHeight * 0.9;
 
     elements.forEach((el, index) => {
