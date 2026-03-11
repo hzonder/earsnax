@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>earsnax — Build Authority in Your Market. On Autopilot.</title>
+
+<link rel="icon" type="image/png" href="https://q3upecjjwo0jnqjx.public.blob.vercel-storage.com/earsnax-favicon.png">
+<link rel="apple-touch-icon" href="https://q3upecjjwo0jnqjx.public.blob.vercel-storage.com/earsnax-favicon.png">
+
+<meta name="description" content="Real estate agents: traditional podcasting takes 6-8 hours. Earsnax takes minutes. Build authority in your market with weekly mini-podcasts — no studio, no editor, no falling off schedule. Join the Founding Agents Beta.">
+
+<!-- OpenGraph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://beta.earsnax.com/">
+<meta property="og:title" content="earsnax — The Authority Engine for Real Estate Agents">
+<meta property="og:description" content="Traditional podcasting takes 6-8 hours per episode. Earsnax takes minutes. Build your market reputation on autopilot.">
+<meta property="og:image" content="https://q3upecjjwo0jnqjx.public.blob.vercel-storage.com/earsnax-hero-female-recording.jpeg">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Inter', sans-serif; }
+
+/* Scroll offset for fixed header */
+#signup {
+    scroll-margin-top: 100px;
+}
+
+/* HERO IMAGE — DIRECTIONAL GRADIENT */
+.hero-bg {
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(255,255,255,0.97) 0%,
+            rgba(255,255,255,0.92) 35%,
+            rgba(255,255,255,0.70) 55%,
+            rgba(255,255,255,0.30) 70%,
+            rgba(255,255,255,0.00) 100%
+        ),
+        url('https://q3upecjjwo0jnqjx.public.blob.vercel-storage.com/earsnax-hero-female-recording.jpeg');
+    background-size: cover;
+    background-position: right center;
+}
+
+/* Subtitle */
+.hero-subtitle {
+    line-height: 1.35;       /* tighter line spacing */
+    margin-bottom: 0.5rem;   /* less space to bullets */
+    color: #0070f3;         
+    font-size: 1.75rem;
+}
+
+/* Benefit list */
+.benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0; /* spacing below bullets for CTA */
+    max-width: 3xl;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.benefit-list li {
+    position: relative;
+    padding-left: 1.75rem;   /* space for bullet */
+    margin-bottom: 0.75rem;
+    font-size: 1.125rem;
+    line-height: 1.45;
+    color: #374151;
+    opacity: 0;              /* hidden initially for scroll animation */
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.benefit-list li.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.benefit-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%); /* vertically center bullet with text */
+    font-size: 1.5rem;
+    color: #ff4e00;
+}
+
+/* CTA eyebrow above button */
+.cta-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #ff4e00;
+    margin-top: 1rem;      /* extra spacing above the line */
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+</style>
+</head>
+
+<body class="bg-white text-gray-900">
+
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <img src="earsnax-logo-white-bg-final-1769549481988.png"
+             alt="earsnax" class="h-20">
+        <a href="#signup"
+           class="bg-[#0070f3] hover:bg-[#005fd1] text-white px-6 py-2 rounded-full font-semibold transition">
+            Join the Founding Agents
+        </a>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="pt-40 pb-28 px-6 hero-bg border-b border-gray-100">
+    <div class="max-w-5xl mx-auto text-center">
+
+        <div class="inline-block mb-6 px-4 py-1.5 text-sm font-bold uppercase tracking-wide bg-[#ff4e00] text-white rounded-full">
+            Founding Agents Beta — Limited Spots
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+          Become the Most Trusted Agent in Your Market.
+        </h1>
+
+        <p class="hero-subtitle">
+            Polished market updates and neighborhood spotlights from your phone — no studio, no editor, no falling off schedule.
+        </p>
+
+        <!-- Benefits -->
+        <ul class="benefit-list text-left">
+            <li><strong>Idea to published in minutes</strong> — not the 6–8 hours traditional podcasting demands.</li>
+            <li><strong>Record from your car</strong> between showings — AI makes it sound like a studio.</li>
+            <li><strong>Never run out of topics</strong> — Earsnax co-authors scripts based on your market and expertise.</li>
+            <li><strong>Publish automatically</strong> to Spotify, Apple, YouTube, and your website — on a schedule that builds authority week after week.</li>
+            <li><strong>Choose your level:</strong> record your own voice, clone it so episodes sound like you without recording, or go full autopilot.</li>
+        </ul>
+
+        <!-- CTA eyebrow + button -->
+        <div class="max-w-md mx-auto" id="signup">
+            <p class="cta-eyebrow">Claim Your Founding Agent Spot + Lifetime Discount</p>
+            <form id="form-container" onsubmit="handleSubmit(event)"
+                  class="bg-white p-2 rounded-3xl shadow-xl border border-gray-200 flex flex-col sm:flex-row gap-2">
+                <input type="email" id="email-input" required
+                       placeholder="Enter your email"
+                       class="flex-1 px-6 py-4 rounded-2xl bg-gray-50 text-lg focus:outline-none">
+                <button id="submit-btn"
+                        class="bg-[#ff4e00] hover:bg-[#e64500] text-white px-8 py-4 rounded-2xl font-bold text-lg transition">
+                    Join the Founding Agents
+                </button>
+            </form>
+
+            <div id="success-message"
+                 class="hidden bg-green-50 border border-green-200 rounded-3xl p-8 text-center shadow-lg mt-4">
+                <h3 class="text-2xl font-bold mb-2">You're in 🎉</h3>
+                <p class="text-gray-600">We’ll email you with next steps shortly.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-24 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-20">
+            From your car to their earbuds — in minutes
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-12">
+            <div>
+                <h3 class="text-2xl font-bold mb-3">1. Tell Earsnax About Your Market</h3>
+                <p class="text-gray-600 text-lg">
+                    Your city, your niche, your expertise. Earsnax learns what your audience needs to hear — and co-authors scripts or runs fully on autopilot.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-3">2. Record — Or Clone Your Voice</h3>
+                <p class="text-gray-600 text-lg">
+                    Record yourself for a personal touch — even from your car. Or clone your voice so episodes sound exactly like you without ever hitting record. Studio-quality mastering either way.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-3">3. Show Up Every Week Without Thinking About It</h3>
+                <p class="text-gray-600 text-lg">
+                    Episodes publish on your schedule to Spotify, Apple, YouTube, and your website. Your authority compounds while you're at showings.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="py-24 px-6 bg-gray-50 border-t border-gray-100">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-20">
+            Built for agents who sell houses — not content creators
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="bg-white p-10 rounded-3xl border">
+                <h3 class="text-2xl font-bold mb-3">Studio Sound From Your Car</h3>
+                <p class="text-gray-600 text-lg">
+                    Record between showings, in a parking lot, or at your kitchen table. AI mastering makes it sound like a professional studio.
+                </p>
+            </div>
+
+            <div class="bg-white p-10 rounded-3xl border">
+                <h3 class="text-2xl font-bold mb-3">Your Voice, Your Market</h3>
+                <p class="text-gray-600 text-lg">
+                    Record when you want to. Clone your voice for when you don't. Either way, your audience hears you — not a generic AI. Your personality, your market knowledge, your brand.
+                </p>
+            </div>
+
+            <div class="bg-white p-10 rounded-3xl border">
+                <h3 class="text-2xl font-bold mb-3">Full Autopilot</h3>
+                <p class="text-gray-600 text-lg">
+                    Set it up once. Earsnax scripts, produces, and publishes a recurring series automatically — building your reputation while you're focused on closings.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Audience — Real Estate Content Calendar -->
+<section class="py-24 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-16">
+            What would you publish this week?
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-10 text-left">
+
+            <div class="border rounded-3xl p-8">
+                <h3 class="text-xl font-bold mb-2 text-[#0070f3]">
+                    Monday
+                </h3>
+                <p class="text-gray-600 text-lg font-semibold mb-1">
+                    "5-Minute Market Update"
+                </p>
+                <p class="text-gray-500">
+                    What buyers and sellers need to know about your market this week — delivered in your voice, automatically.
+                </p>
+            </div>
+
+            <div class="border rounded-3xl p-8">
+                <h3 class="text-xl font-bold mb-2 text-[#0070f3]">
+                    Wednesday
+                </h3>
+                <p class="text-gray-600 text-lg font-semibold mb-1">
+                    "Neighborhood Spotlight"
+                </p>
+                <p class="text-gray-500">
+                    Why everyone's moving to your area. Position yourself as the local expert who knows every street.
+                </p>
+            </div>
+
+            <div class="border rounded-3xl p-8">
+                <h3 class="text-xl font-bold mb-2 text-[#0070f3]">
+                    Friday
+                </h3>
+                <p class="text-gray-600 text-lg font-semibold mb-1">
+                    "First-Time Buyer Tips"
+                </p>
+                <p class="text-gray-500">
+                    The hidden costs nobody tells you about. Build trust with future clients before you ever meet them.
+                </p>
+            </div>
+
+            <div class="border rounded-3xl p-8">
+                <h3 class="text-xl font-bold mb-2 text-[#0070f3]">
+                    Bonus Episodes
+                </h3>
+                <p class="text-gray-600 text-lg font-semibold mb-1">
+                    "Interest Rate Watch" · "Open House Preview" · "Seller Prep Checklist"
+                </p>
+                <p class="text-gray-500">
+                    A library of authority content that compounds trust — and shows up when clients search your name.
+                </p>
+            </div>
+
+            <div class="border rounded-3xl p-8 md:col-span-2 bg-gray-50">
+                <h3 class="text-xl font-bold mb-2 text-gray-800">
+                    The agent who shows up every week for 12 months will own their market.
+                </h3>
+                <p class="text-gray-500">
+                    That's not a guess — it's how authority works. Earsnax makes the consistency part effortless so you can focus on what you do best: selling houses.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Second CTA -->
+<section class="py-20 px-6 bg-[#0070f3] text-white text-center">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Traditional podcasting: 6–8 hours per episode.<br>
+            Earsnax: minutes.
+        </h2>
+        <p class="text-xl opacity-90 mb-8">
+            Join the founding agents building their market authority on autopilot.
+        </p>
+        <a href="#signup"
+           class="inline-block bg-[#ff4e00] hover:bg-[#e64500] text-white px-10 py-4 rounded-2xl font-bold text-lg transition">
+            Claim Your Founding Agent Spot
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-16 border-t text-center text-gray-400">
+    <img src="earsnax-logo-white-bg-final-1769549481988.png"
+         class="h-20 mx-auto mb-6">
+
+    <div class="mb-4 space-x-6 text-sm">
+        <a href="privacy.html" class="hover:text-gray-600 underline">
+            Privacy Policy
+        </a>
+        <a href="terms.html" class="hover:text-gray-600 underline">
+            Terms of Service
+        </a>
+    </div>
+
+    © 2026 earsnax
+</footer>
+
+<script>
+const BRIDGE_URL = 'https://script.google.com/macros/s/AKfycbxPclupZtox5N7fFUxRZEcGzhiluxaG2yjJxVEOG0X7Jn5flFd3SDntxt2w1TJ95e_7/exec';
+
+async function handleSubmit(event) {
+    event.preventDefault();
+    document.getElementById('submit-btn').innerText = 'Submitting...';
+
+    try {
+        const params = new URLSearchParams(window.location.search);
+        await fetch(BRIDGE_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                email: document.getElementById('email-input').value,
+                source: 'beta_landing',
+                utm_source: params.get('utm_source') || 'direct',
+                utm_medium: params.get('utm_medium') || '',
+                utm_campaign: params.get('utm_campaign') || ''
+            })
+        });
+    } finally {
+        document.getElementById('form-container').classList.add('hidden');
+        document.getElementById('success-message').classList.remove('hidden');
+    }
+}
+
+// Scroll animation for bullets using IntersectionObserver
+document.addEventListener("DOMContentLoaded", function() {
+    const bullets = document.querySelectorAll('.benefit-list li');
+
+    if(bullets.length === 0) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if(entry.isIntersecting) {
+                bullets.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('show');
+                    }, index * 150); // stagger
+                });
+                obs.disconnect(); // run once
+            }
+        });
+    }, { threshold: 0.1 });
+
+    observer.observe(bullets[0]);
+});
+</script>
+
+</body>
+</html>
