@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>earsnax™ — The Authority Engine for Busy Professionals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0F172A; --fg: #F8FAFC;
+      --blue: #00A3FF; --navy: #1f3d71;
+      --g400: #94A3B8; --g500: #64748B; --g600: #475569; --g700: #334155; --g800: #1E293B;
+      --red: #F43F5E; --yellow: #FFE066; --green: #34D399;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--fg); font-family: 'Inter', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── STICKY BOTTOM BAR ─── */
+    .sticky-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(15,23,42,0.97); backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(0,163,255,0.2);
+      padding: 12px 24px;
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+      flex-wrap: wrap;
+    }
+    .sticky-bar-text { font-size: 14px; color: var(--g400); }
+    .sticky-bar-text strong { color: var(--fg); }
+    .sticky-bar .spots { font-size: 13px; font-weight: 700; color: #F87171; }
+    .sticky-bar .btn-sm {
+      display: inline-block; padding: 10px 24px; font-size: 14px; font-weight: 700;
+      color: #fff; border-radius: 10px;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      box-shadow: 0 4px 16px rgba(0,163,255,0.3);
+      white-space: nowrap;
+    }
+    .sticky-bar .btn-sm:hover { filter: brightness(1.1); }
+
+    /* ─── BETA BAR ─── */
+    .beta-bar {
+      background: linear-gradient(90deg, #0d1a33, #1f3d71, #0d1a33);
+      text-align: center; padding: 10px 24px;
+      font-size: 13px; font-weight: 600; position: relative; z-index: 60;
+    }
+    .beta-bar .y { color: var(--yellow); }
+    .beta-bar .pill {
+      display: inline-block; background: rgba(0,0,0,0.3);
+      border-radius: 20px; padding: 2px 12px; margin-left: 10px; font-size: 12px;
+    }
+    .beta-bar .dot-live {
+      display: inline-block; width: 7px; height: 7px;
+      background: #34D399; border-radius: 50%; margin-right: 6px;
+      animation: blink 1.6s ease-in-out infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(15,23,42,0.93); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo img { height: 36px; width: auto; }
+    .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; color: var(--blue); }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-link { font-size: 14px; font-weight: 500; color: var(--g400); transition: color .2s; }
+    .nav-link:hover { color: var(--fg); }
+    .btn-nav {
+      display: inline-block; padding: 10px 22px; font-size: 14px; font-weight: 700;
+      color: #fff; border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      box-shadow: 0 6px 18px rgba(0,163,255,0.28); transition: transform .2s;
+    }
+    .btn-nav:hover { transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative; overflow: hidden; min-height: 92vh;
+      display: flex; align-items: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('./public/hero-woman.png');
+      background-size: cover; background-position: center right;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(100deg, rgba(15,23,42,0.97) 45%, rgba(15,23,42,0.65) 75%, rgba(15,23,42,0.2) 100%);
+    }
+    .hero-glow { position: absolute; top: -100px; left: -80px; width: 600px; height: 600px; background: rgba(0,163,255,0.07); border-radius: 50%; filter: blur(130px); pointer-events: none; }
+    .hero-content { position: relative; max-width: 700px; padding: 130px 48px 90px; }
+
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3);
+      border-radius: 100px; padding: 6px 16px; margin-bottom: 28px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #34D399;
+    }
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(38px, 5.5vw, 66px); font-weight: 900;
+      line-height: 1.07; letter-spacing: -1.5px; margin-bottom: 24px;
+    }
+    .hero h1 .accent { color: var(--blue); }
+    .hero h1 .strike { position: relative; color: var(--g500); }
+    .hero h1 .strike::after {
+      content: ''; position: absolute; left: 0; right: 0; top: 52%;
+      height: 3px; background: var(--red); border-radius: 2px;
+    }
+    .hero-sub { font-size: 19px; color: var(--g400); margin-bottom: 10px; max-width: 580px; line-height: 1.7; }
+    .hero-sub strong { color: var(--fg); }
+    .hero-proof { font-size: 12px; color: var(--g500); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 36px; }
+
+    .hero-cta { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 32px; }
+    .btn-hero {
+      display: inline-block; padding: 18px 42px; font-size: 17px; font-weight: 800;
+      color: #fff; border-radius: 16px;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      box-shadow: 0 14px 36px rgba(0,163,255,0.38);
+      font-family: 'Montserrat', sans-serif; transition: transform .2s, box-shadow .2s;
+    }
+    .btn-hero:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(0,163,255,0.48); }
+    .lock-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,224,102,0.1); border: 1px solid rgba(255,224,102,0.3);
+      border-radius: 100px; padding: 7px 15px; font-size: 13px; font-weight: 600; color: var(--yellow);
+    }
+
+    .scarcity-wrap { max-width: 400px; }
+    .sc-labels { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--g400); margin-bottom: 8px; }
+    .sc-labels .urgent { color: #F87171; }
+    .sc-track { height: 6px; background: rgba(255,255,255,0.07); border-radius: 100px; overflow: hidden; }
+    .sc-fill {
+      height: 100%; width: 66.5%; background: linear-gradient(90deg, var(--navy), var(--blue));
+      border-radius: 100px; position: relative;
+    }
+    .sc-fill::after {
+      content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 50px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35));
+      animation: shimmer 2.2s ease-in-out infinite;
+    }
+    @keyframes shimmer { 0%,100%{opacity:.4;} 50%{opacity:1;} }
+
+    .hero-platforms { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+    .platform-tag {
+      padding: 5px 13px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.04); font-size: 11px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+    }
+
+    /* ─── PROOF STRIP ─── */
+    .proof-strip {
+      background: rgba(255,255,255,0.025); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 20px 24px;
+    }
+    .proof-strip-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 32px;
+    }
+    .proof-item { display: flex; align-items: center; gap: 10px; }
+    .proof-icon { width: 34px; height: 34px; border-radius: 10px; background: rgba(0,163,255,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .proof-icon svg { width: 17px; height: 17px; stroke: var(--blue); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .proof-text { font-size: 13px; font-weight: 600; color: var(--g400); }
+    .proof-text strong { color: var(--fg); }
+    .proof-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.07); }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 88px 24px; }
+    .w { max-width: 1200px; margin: 0 auto; }
+    .tag { font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+    .h2 { font-family: 'Montserrat', sans-serif; font-size: clamp(28px, 4vw, 48px); font-weight: 900; line-height: 1.1; letter-spacing: -.5px; margin-bottom: 16px; }
+    .sub { font-size: 18px; color: var(--g400); max-width: 600px; line-height: 1.65; }
+    .glass {
+      background: rgba(255,255,255,0.04); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.09); border-radius: 20px;
+    }
+    .glass-blue { background: rgba(31,61,113,0.15); border: 1px solid rgba(31,61,113,0.35); border-radius: 20px; }
+    .centered { text-align: center; }
+    .centered .sub { margin: 0 auto; }
+
+    /* ─── CONSISTENCY SECTION (PAIN) ─── */
+    .pain-bg { background: rgba(244,63,94,0.03); border-top: 1px solid rgba(244,63,94,0.08); border-bottom: 1px solid rgba(244,63,94,0.08); }
+    .pain-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    @media(max-width:768px){ .pain-layout { grid-template-columns: 1fr; gap: 40px; } }
+    .pain-stat {
+      background: rgba(244,63,94,0.08); border: 1px solid rgba(244,63,94,0.2);
+      border-radius: 20px; padding: 32px; margin-bottom: 24px; text-align: center;
+    }
+    .pain-stat .big { font-family: 'Montserrat', sans-serif; font-size: 64px; font-weight: 900; color: #F87171; line-height: 1; margin-bottom: 8px; }
+    .pain-stat .label { font-size: 15px; color: var(--g400); line-height: 1.5; }
+    .pain-stat .label strong { color: var(--fg); }
+    .pain-quote {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-left: 3px solid var(--red); border-radius: 12px; padding: 20px 24px;
+    }
+    .pain-quote p { font-size: 15px; color: var(--g400); line-height: 1.7; font-style: italic; }
+    .pain-list { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+    .pain-item { display: flex; align-items: flex-start; gap: 14px; }
+    .pain-x { width: 22px; height: 22px; background: rgba(244,63,94,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; font-size: 12px; color: #F87171; font-weight: 900; }
+    .pain-item-text { font-size: 15px; color: var(--g400); line-height: 1.6; }
+    .pain-item-text strong { color: var(--fg); }
+
+    /* ─── NOT SECTION ─── */
+    .not-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+    @media(max-width:768px){ .not-grid { grid-template-columns: 1fr; } }
+    .not-card { padding: 28px 30px; border-radius: 18px; }
+    .not-card.no { background: rgba(244,63,94,0.06); border: 1px solid rgba(244,63,94,0.14); }
+    .not-card.yes { background: rgba(52,211,153,0.05); border: 1px solid rgba(52,211,153,0.18); }
+    .not-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .not-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; flex-shrink: 0; }
+    .not-icon.x { background: rgba(244,63,94,0.15); color: #F87171; }
+    .not-icon.chk { background: rgba(52,211,153,0.15); color: #34D399; }
+    .not-label { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; }
+    .not-items { display: flex; flex-direction: column; gap: 10px; }
+    .not-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--g400); line-height: 1.5; }
+    .not-bullet { margin-top: 4px; flex-shrink: 0; font-weight: 900; font-size: 13px; }
+    .not-bullet.x { color: #F87171; }
+    .not-bullet.chk { color: #34D399; }
+
+    /* ─── PRODUCT MOCKUP ─── */
+    .product-section { background: rgba(255,255,255,0.02); }
+    .mockup-wrap {
+      margin-top: 52px; border-radius: 24px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08); background: #0d1525;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,163,255,0.06);
+    }
+    .mockup-bar {
+      background: #0a1020; padding: 12px 20px;
+      display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .dot-r { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r.red { background: #F87171; } .dot-r.yellow { background: #FBBF24; } .dot-r.green { background: #34D399; }
+    .mockup-url { flex: 1; background: rgba(255,255,255,0.05); border-radius: 6px; padding: 5px 14px; font-size: 12px; color: var(--g500); margin: 0 16px; text-align: center; }
+    .mockup-body { padding: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media(max-width:768px){ .mockup-body { grid-template-columns: 1fr; } }
+    .mockup-panel { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px; }
+    .mockup-panel-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--g500); margin-bottom: 16px; }
+    .mockup-input-sim {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(0,163,255,0.2);
+      border-radius: 10px; padding: 12px 14px; font-size: 13px; color: var(--g400);
+      line-height: 1.6; min-height: 90px;
+    }
+    .mockup-input-sim .cursor { display: inline-block; width: 2px; height: 14px; background: var(--blue); margin-left: 2px; animation: blink 1s step-end infinite; vertical-align: middle; }
+    .mockup-steps { display: flex; flex-direction: column; gap: 10px; }
+    .mockup-step { display: flex; align-items: center; gap: 12px; }
+    .mockup-step-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .mockup-step-dot.done { background: #34D399; }
+    .mockup-step-dot.active { background: var(--blue); animation: blink 1s ease-in-out infinite; }
+    .mockup-step-dot.wait { background: rgba(255,255,255,0.15); }
+    .mockup-step-label { font-size: 13px; color: var(--g400); }
+    .mockup-step-label.done { color: #34D399; text-decoration: line-through; text-decoration-color: rgba(52,211,153,0.4); }
+    .mockup-step-label.active { color: var(--fg); font-weight: 600; }
+    .mockup-timer { margin-top: 14px; background: rgba(0,163,255,0.08); border: 1px solid rgba(0,163,255,0.15); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; }
+    .mockup-timer-label { font-size: 12px; color: var(--blue); font-weight: 600; }
+    .mockup-timer-val { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--blue); }
+    .mockup-waveform { margin-top: 14px; display: flex; align-items: flex-end; gap: 3px; height: 36px; }
+    .wv { border-radius: 3px; background: linear-gradient(180deg, var(--blue), var(--navy)); flex: 1; }
+    .mockup-quality { margin-top: 14px; display: flex; align-items: center; gap: 8px; }
+    .quality-bar { flex: 1; height: 4px; border-radius: 100px; overflow: hidden; background: rgba(255,255,255,0.07); }
+    .quality-fill { height: 100%; background: linear-gradient(90deg, var(--navy), #34D399); border-radius: 100px; }
+    .quality-label { font-size: 11px; color: #34D399; font-weight: 700; white-space: nowrap; }
+    .mockup-publish { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .pub-tag { padding: 4px 10px; border-radius: 6px; background: rgba(0,163,255,0.1); border: 1px solid rgba(0,163,255,0.2); font-size: 11px; font-weight: 600; color: var(--blue); }
+    .pub-tag.live { background: rgba(52,211,153,0.1); border-color: rgba(52,211,153,0.25); color: #34D399; }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0; align-items: start; margin-top: 56px; }
+    @media(max-width:768px){ .steps-row { grid-template-columns: 1fr; gap: 24px; } .step-arrow { display: none; } }
+    .step-box { text-align: center; padding: 32px 24px; }
+    .step-box.mid { background: rgba(31,61,113,0.12); border: 1px solid rgba(31,61,113,0.3); border-radius: 20px; }
+    .step-num-circle {
+      width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 18px;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 18px; color: #fff;
+      box-shadow: 0 6px 18px rgba(0,163,255,0.3);
+    }
+    .step-emoji { font-size: 36px; margin-bottom: 14px; }
+    .step-box h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 18px; margin-bottom: 10px; }
+    .step-box p { font-size: 14px; color: var(--g400); line-height: 1.7; }
+    .step-arrow { display: flex; align-items: center; padding: 0 8px; margin-top: 60px; }
+    .step-arrow svg { width: 24px; height: 24px; stroke: var(--navy); stroke-width: 2; fill: none; }
+    .step-metrics { margin-top: 16px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .step-metric { display: inline-block; background: rgba(0,163,255,0.08); border: 1px solid rgba(0,163,255,0.15); border-radius: 8px; padding: 4px 10px; font-size: 12px; font-weight: 700; color: var(--blue); }
+
+    /* ─── REPURPOSE ─── */
+    .repurpose-bg { background: rgba(255,255,255,0.02); }
+    .repurpose-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    @media(max-width:768px){ .repurpose-layout { grid-template-columns: 1fr; gap: 40px; } }
+    .repurpose-visual { display: flex; flex-direction: column; gap: 14px; }
+    .repurpose-source {
+      background: rgba(0,163,255,0.07); border: 1px solid rgba(0,163,255,0.2);
+      border-radius: 14px; padding: 18px 22px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .repurpose-arrow-wrap { display: flex; align-items: center; justify-content: center; padding: 4px 0; }
+    .repurpose-arrow-wrap svg { width: 24px; height: 24px; stroke: var(--blue); fill: none; stroke-width: 2; opacity: 0.5; }
+    .repurpose-outputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .repurpose-out {
+      background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.18);
+      border-radius: 12px; padding: 14px 16px;
+    }
+    .out-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #34D399; margin-bottom: 4px; }
+    .out-desc { font-size: 13px; color: var(--g400); }
+    .repurpose-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(0,163,255,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .repurpose-icon svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .repurpose-source-text { font-size: 15px; font-weight: 600; color: var(--fg); }
+    .repurpose-source-sub { font-size: 13px; color: var(--g400); margin-top: 2px; }
+    .autopilot-badge {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 24px;
+      background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 100px; padding: 8px 18px; font-size: 13px; font-weight: 700; color: #34D399;
+    }
+
+    /* ─── VOICE OPTIONS ─── */
+    .voice-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 52px; }
+    @media(max-width:768px){ .voice-grid { grid-template-columns: 1fr; } }
+    .voice-card { padding: 36px 28px; border-radius: 20px; }
+    .voice-icon { width: 52px; height: 52px; border-radius: 14px; background: rgba(0,163,255,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .voice-icon svg { width: 26px; height: 26px; stroke: var(--blue); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .voice-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 19px; margin-bottom: 10px; }
+    .voice-card p { font-size: 14px; color: var(--g400); line-height: 1.7; }
+
+    /* ─── TESTIMONIALS ─── */
+    .t-bg { background: rgba(255,255,255,0.02); }
+    .t-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 52px; }
+    @media(max-width:768px){ .t-grid { grid-template-columns: 1fr; } }
+    .t-card { padding: 32px; border-radius: 20px; }
+    .t-avatar { width: 44px; height: 44px; border-radius: 50%; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; color: #fff; background: linear-gradient(135deg, var(--navy), var(--blue)); }
+    .t-quote { font-size: 15px; color: #CBD5E1; line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+    .t-name { font-size: 13px; font-weight: 700; color: var(--fg); }
+    .t-title { font-size: 12px; color: var(--g500); margin-top: 2px; }
+    .t-result { display: inline-block; margin-top: 10px; background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); border-radius: 6px; padding: 3px 10px; font-size: 12px; font-weight: 700; color: #34D399; }
+
+    /* ─── FAQ ─── */
+    .faq-list { margin-top: 52px; max-width: 780px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 2px; }
+    .faq-item { border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; overflow: hidden; }
+    .faq-item + .faq-item { margin-top: 8px; }
+    .faq-q {
+      width: 100%; background: rgba(255,255,255,0.03); border: none; cursor: pointer;
+      padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;
+      text-align: left; color: var(--fg); font-size: 16px; font-weight: 600; font-family: 'Inter', sans-serif;
+      transition: background .2s;
+    }
+    .faq-q:hover { background: rgba(255,255,255,0.05); }
+    .faq-q .chevron { width: 20px; height: 20px; flex-shrink: 0; stroke: var(--g500); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s; }
+    .faq-item.open .faq-q .chevron { transform: rotate(180deg); }
+    .faq-a { display: none; padding: 0 24px 20px; font-size: 15px; color: var(--g400); line-height: 1.75; background: rgba(255,255,255,0.02); }
+    .faq-item.open .faq-a { display: block; }
+    .faq-a strong { color: var(--fg); }
+
+    /* ─── BETA OFFER ─── */
+    .offer-section { position: relative; overflow: hidden; }
+    .offer-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(0,163,255,0.07) 0%, transparent 65%); pointer-events: none; }
+    .offer-inner { max-width: 820px; margin: 0 auto; text-align: center; position: relative; }
+    .offer-badge {
+      display: inline-block; background: rgba(255,224,102,0.1); border: 1px solid rgba(255,224,102,0.3);
+      border-radius: 100px; padding: 8px 20px; font-size: 13px; font-weight: 700;
+      color: var(--yellow); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px;
+    }
+    .offer-title { font-family: 'Montserrat', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 900; line-height: 1.08; letter-spacing: -1px; margin-bottom: 16px; }
+    .offer-title .y { color: var(--yellow); }
+    .offer-sub { font-size: 18px; color: var(--g400); margin-bottom: 48px; max-width: 620px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .offer-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 40px; text-align: left; }
+    @media(max-width:640px){ .offer-cards { grid-template-columns: 1fr; } }
+    .offer-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px; padding: 24px 22px;
+    }
+    .offer-card-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; color: var(--g500); margin-bottom: 8px; }
+    .offer-card-value { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+    .offer-card-value.y { color: var(--yellow); }
+    .offer-card-value.r { color: #F87171; }
+    .offer-card-note { font-size: 12px; color: var(--g500); line-height: 1.5; }
+    .offer-math-box {
+      background: rgba(255,224,102,0.06); border: 1px solid rgba(255,224,102,0.2);
+      border-radius: 14px; padding: 20px 28px; margin-bottom: 36px; display: inline-block;
+      font-size: 15px; color: var(--g400); line-height: 1.7;
+    }
+    .offer-math-box strong { color: var(--yellow); font-size: 16px; }
+    .btn-offer {
+      display: inline-block; padding: 22px 56px; font-size: 19px; font-weight: 800;
+      color: #fff; border-radius: 18px;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      box-shadow: 0 16px 44px rgba(0,163,255,0.42);
+      font-family: 'Montserrat', sans-serif; transition: transform .2s, box-shadow .2s;
+    }
+    .btn-offer:hover { transform: translateY(-4px); box-shadow: 0 24px 54px rgba(0,163,255,0.52); }
+    .no-risk { margin-top: 18px; font-size: 13px; color: var(--g600); }
+    .offer-sc-wrap { max-width: 400px; margin: 36px auto 0; }
+
+    /* ─── WHO IT'S FOR ─── */
+    .who-bg { background: rgba(255,255,255,0.02); }
+    .who-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 48px; }
+    .who-card { padding: 22px; border-radius: 16px; }
+    .who-emoji { font-size: 28px; margin-bottom: 12px; }
+    .who-type { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; margin-bottom: 6px; }
+    .who-desc { font-size: 13px; color: var(--g400); line-height: 1.6; }
+
+    /* ─── FOOTER ─── */
+    footer { padding: 56px 24px 96px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-logo img { height: 28px; margin: 0 auto 14px; }
+    .footer-tagline { font-size: 12px; color: var(--g600); text-transform: uppercase; letter-spacing: .15em; margin-bottom: 6px; }
+    .footer-copy { font-size: 11px; color: var(--g700); }
+
+    @media(max-width:640px){ section { padding: 64px 20px; } .hero-content { padding: 110px 24px 70px; } }
+  </style>
+</head>
+<body>
+
+<!-- ════ STICKY BOTTOM BAR ════ -->
+<div class="sticky-bar">
+  <span class="sticky-bar-text"><strong>Beta Launch:</strong> 50% off for life</span>
+  <span class="spots">⚡ 67 of 200 spots remaining</span>
+  <a href="#claim" class="btn-sm">Claim My Spot →</a>
+</div>
+
+<!-- ════ BETA BAR ════ -->
+<div class="beta-bar">
+  <span class="dot-live"></span>
+  <strong>Beta Launch is Live</strong> &nbsp;·&nbsp;
+  <span class="y">50% off for life</span> &nbsp;·&nbsp;
+  <span class="pill">⚡ Limited to 200 founders</span>
+</div>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <img src="./earsnax-logo-tm.png" alt="earsnax™"
+        onerror="this.src='./public/earsnax-logo-tm.png';" />
+    </div>
+    <div class="nav-right">
+      <a href="/auth/login" class="nav-link">Login</a>
+      <a href="#claim" class="btn-nav">Claim Your Beta Spot</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="hero" style="padding:0;">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="live-badge">
+      <span class="dot-live"></span> Beta Launch — 200 Founding Spots
+    </div>
+    <h1>
+      The #1 killer of authority<br/>
+      isn't bad content.<br/>
+      It's <span class="accent">silence.</span>
+    </h1>
+    <p class="hero-sub">
+      <strong>earsnax™ is the authority engine</strong> that keeps busy professionals showing up consistently — with studio-quality audio snacks produced in under 10 minutes, right from your phone.
+    </p>
+    <p class="hero-proof">No studio &nbsp;·&nbsp; No equipment &nbsp;·&nbsp; No editor &nbsp;·&nbsp; Just your phone</p>
+    <div class="hero-cta">
+      <a href="#claim" class="btn-hero">Claim 50% Off For Life →</a>
+      <span class="lock-tag">🔒 Locked in forever</span>
+    </div>
+    <div class="scarcity-wrap">
+      <div class="sc-labels">
+        <span>Beta spots claimed</span>
+        <span class="urgent">67 of 200 remaining</span>
+      </div>
+      <div class="sc-track"><div class="sc-fill"></div></div>
+    </div>
+    <div class="hero-platforms" style="margin-top:28px;">
+      <span class="platform-tag">Spotify</span>
+      <span class="platform-tag">Apple Podcasts</span>
+      <span class="platform-tag">YouTube</span>
+      <span class="platform-tag">+ more</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PROOF STRIP ════ -->
+<div class="proof-strip">
+  <div class="proof-strip-inner">
+    <div class="proof-item">
+      <div class="proof-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <span class="proof-text"><strong>Under 10 minutes</strong> from idea to published</span>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="proof-icon">
+        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      </div>
+      <span class="proof-text">All you need is <strong>your phone</strong></span>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="proof-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      </div>
+      <span class="proof-text">Publish to <strong>Spotify, Apple, YouTube</strong> simultaneously</span>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+      <div class="proof-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <span class="proof-text">Your AI <strong>creative partner</strong> — never blank-page again</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════ THE CONSISTENCY TRAP (PAIN) ════ -->
+<section class="pain-bg">
+  <div class="w">
+    <div class="pain-layout">
+      <div>
+        <div class="tag">The authority killer</div>
+        <h2 class="h2">Most professionals<br/>quit after 10 episodes.</h2>
+        <p class="sub" style="margin-bottom:32px;">
+          Delivering quality, relevant content consistently has always been hard and expensive. So professionals start strong — then disappear. And when you go quiet, your audience moves on.
+        </p>
+        <div class="pain-quote">
+          <p>"When your audience doesn't hear something relevant from you at regular intervals, you cease to be relevant to them. That's not a content problem — it's a consistency problem."</p>
+        </div>
+        <div class="pain-list">
+          <div class="pain-item">
+            <div class="pain-x">✕</div>
+            <div class="pain-item-text"><strong>Soundproof studios and expensive equipment</strong> create a massive barrier to entry that most professionals can't sustain</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-x">✕</div>
+            <div class="pain-item-text"><strong>Post-production editing eats hours</strong> you don't have — so publishing weekly becomes an impossible second job</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-x">✕</div>
+            <div class="pain-item-text"><strong>Staring at a blank page</strong> kills momentum — scripting and coming up with fresh ideas weekly drains the energy of even the most motivated experts</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pain-stat">
+          <div class="big">10</div>
+          <div class="label">The average number of episodes professionals publish before quitting. <strong>Their authority dies with episode 11.</strong></div>
+        </div>
+        <div class="pain-stat" style="background:rgba(255,255,255,0.03); border-color:rgba(255,255,255,0.08);">
+          <div class="big" style="color:var(--blue); font-size:44px; line-height:1.2;">2 weeks</div>
+          <div class="label">How long it takes an audience to forget a professional who goes silent. <strong>Out of sight = out of mind = out of business.</strong></div>
+        </div>
+        <div class="pain-stat" style="background:rgba(255,255,255,0.03); border-color:rgba(255,255,255,0.08);">
+          <div class="big" style="color:var(--yellow); font-size:40px; line-height:1.2;">Top of mind</div>
+          <div class="label">wins business. When buyers enter buying mode for what you offer, <strong>the professional they've been hearing from consistently gets the call.</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHAT EARSNAX IS NOT ════ -->
+<section>
+  <div class="w">
+    <div class="tag">Clarity before commitment</div>
+    <h2 class="h2">Let's be honest about<br/>what earsnax is and isn't.</h2>
+    <p class="sub">We'd rather earn your trust than oversell you.</p>
+    <div class="not-grid">
+      <div class="not-card no">
+        <div class="not-header">
+          <div class="not-icon x">✕</div>
+          <div class="not-label">earsnax is NOT…</div>
+        </div>
+        <div class="not-items">
+          <div class="not-item"><span class="not-bullet x">✕</span> A traditional podcast platform with complicated publishing workflows</div>
+          <div class="not-item"><span class="not-bullet x">✕</span> A recording app that still requires a real studio to sound good</div>
+          <div class="not-item"><span class="not-bullet x">✕</span> A tool that dumps the scripting and editing work back on you</div>
+          <div class="not-item"><span class="not-bullet x">✕</span> Another subscription you'll buy and forget about</div>
+          <div class="not-item"><span class="not-bullet x">✕</span> For people who enjoy the production grind</div>
+        </div>
+      </div>
+      <div class="not-card yes">
+        <div class="not-header">
+          <div class="not-icon chk">✓</div>
+          <div class="not-label">earsnax IS…</div>
+        </div>
+        <div class="not-items">
+          <div class="not-item"><span class="not-bullet chk">✓</span> A <strong>content co-creator and studio in your pocket</strong> — your phone is all you need</div>
+          <div class="not-item"><span class="not-bullet chk">✓</span> An AI partner that <strong>scripts, polishes, and masters</strong> your audio automatically</div>
+          <div class="not-item"><span class="not-bullet chk">✓</span> The system that makes <strong>consistency effortless</strong> — even on your busiest days</div>
+          <div class="not-item"><span class="not-bullet chk">✓</span> A tool that turns one snack into a <strong>podcast, blog post, and social content</strong> on autopilot</div>
+          <div class="not-item"><span class="not-bullet chk">✓</span> For busy professionals who want <strong>authority without the grind</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PRODUCT SCREENSHOTS ════ -->
+<style>
+  .screenshots-section { background: rgba(255,255,255,0.02); }
+  .screenshots-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 52px; align-items: start; }
+  @media(max-width:900px){ .screenshots-layout { grid-template-columns: 1fr; } }
+
+  .screenshot-frame {
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 32px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,163,255,0.06);
+    background: #0d1525;
+    position: relative;
+  }
+  .screenshot-chrome {
+    background: #0a1020; padding: 10px 16px;
+    display: flex; align-items: center; gap: 7px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .sc-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .sc-dot.r { background: #F87171; } .sc-dot.y { background: #FBBF24; } .sc-dot.g { background: #34D399; }
+  .sc-url {
+    flex: 1; background: rgba(255,255,255,0.05); border-radius: 5px;
+    padding: 4px 12px; font-size: 11px; color: var(--g500); margin: 0 12px; text-align: center;
+  }
+  .screenshot-frame img {
+    width: 100%; display: block; object-fit: cover;
+  }
+  .screenshot-caption {
+    padding: 16px 20px;
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .screenshot-caption .cap-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .12em; color: var(--blue); margin-bottom: 4px;
+  }
+  .screenshot-caption .cap-text { font-size: 13px; color: var(--g400); line-height: 1.5; }
+  .screenshot-live-badge {
+    position: absolute; top: 52px; right: 14px;
+    background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.3);
+    border-radius: 100px; padding: 4px 10px;
+    font-size: 11px; font-weight: 700; color: #34D399;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .screenshot-live-badge .blink { width: 6px; height: 6px; border-radius: 50%; background: #34D399; animation: blink 1.4s ease-in-out infinite; }
+</style>
+<section class="screenshots-section">
+  <div class="w">
+    <div class="centered">
+      <div class="tag">The real product</div>
+      <h2 class="h2">Your studio, your publisher,<br/>your creative partner — all in one</h2>
+      <p class="sub">No mockups. This is the actual earsnax dashboard — and where your snack ends up.</p>
+    </div>
+    <div class="screenshots-layout">
+
+      <!-- Dashboard screenshot -->
+      <div class="screenshot-frame">
+        <div class="screenshot-chrome">
+          <span class="sc-dot r"></span><span class="sc-dot y"></span><span class="sc-dot g"></span>
+          <span class="sc-url">creator.earsnax.com/dashboard</span>
+        </div>
+        <div class="screenshot-live-badge">
+          <span class="blink"></span> Live product
+        </div>
+        <img
+          src="./public/screenshots/dashboard.jpeg"
+          alt="earsnax dashboard showing shows and analytics"
+          onerror="this.parentElement.style.minHeight='280px'; this.style.display='none';"
+        />
+        <div class="screenshot-caption">
+          <div class="cap-label">The earsnax dashboard</div>
+          <div class="cap-text">Manage all your shows, track episodes, and launch new snacks — right from creator.earsnax.com. Your entire content operation in one clean view.</div>
+        </div>
+      </div>
+
+      <!-- Spotify screenshot -->
+      <div>
+        <div class="screenshot-frame">
+          <div class="screenshot-chrome">
+            <span class="sc-dot r"></span><span class="sc-dot y"></span><span class="sc-dot g"></span>
+            <span class="sc-url">open.spotify.com — earsnax podcast</span>
+          </div>
+          <img
+            src="./public/screenshots/spotify.jpeg"
+            alt="earsnax podcast live on Spotify"
+            onerror="this.parentElement.style.minHeight='240px'; this.style.display='none';"
+          />
+          <div class="screenshot-caption">
+            <div class="cap-label">Live on Spotify</div>
+            <div class="cap-text">This is an actual earsnax-powered podcast — <em>Flow Ride: Make it Easy!</em> — live on Spotify. Created in minutes, published automatically, building authority right now.</div>
+          </div>
+        </div>
+
+        <!-- Callout below Spotify -->
+        <div style="margin-top:20px; background: rgba(0,163,255,0.06); border: 1px solid rgba(0,163,255,0.15); border-radius:14px; padding:20px 22px;">
+          <div style="font-size:13px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.1em; margin-bottom:8px;">What you're looking at</div>
+          <div style="font-size:14px; color:var(--g400); line-height:1.7;">A real professional's show — live on Spotify, Apple Podcasts, and YouTube — created without a studio, without an editor, and without spending more than 10 minutes per episode. <strong style="color:var(--fg);">This is what earsnax™ delivers.</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ HOW IT WORKS ════ -->
+<section>
+  <div class="w">
+    <div class="centered">
+      <div class="tag">How it works</div>
+      <h2 class="h2">Idea to authority in 3 steps</h2>
+      <p class="sub">No studio. No editor. No problem.</p>
+    </div>
+    <div class="steps-row">
+      <div class="step-box">
+        <div class="step-emoji">💡</div>
+        <div class="step-num-circle">1</div>
+        <h3>Capture your idea</h3>
+        <p>Drop a topic or a quick bullet list. Your AI creative partner helps shape it if you're stuck — no blank page, ever.</p>
+        <div class="step-metrics">
+          <span class="step-metric">30 seconds</span>
+        </div>
+      </div>
+      <div class="step-arrow">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="step-box mid">
+        <div class="step-emoji">✨</div>
+        <div class="step-num-circle">2</div>
+        <h3>earsnax™ does the rest</h3>
+        <p>Scripts, polishes, and masters your audio to broadcast quality — in your voice, your clone, or an AI actor. Raw mobile audio becomes studio-grade, automatically.</p>
+        <div class="step-metrics">
+          <span class="step-metric">~8 minutes</span>
+          <span class="step-metric">a couple of bucks</span>
+        </div>
+      </div>
+      <div class="step-arrow">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="step-box">
+        <div class="step-emoji">🚀</div>
+        <div class="step-num-circle">3</div>
+        <h3>Publish everywhere</h3>
+        <p>One tap sends your snack to Spotify, Apple, YouTube, and more — simultaneously. Your blog and social posts generate themselves. Your authority compounds.</p>
+        <div class="step-metrics">
+          <span class="step-metric">1 click</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ REPURPOSE ════ -->
+<section class="repurpose-bg">
+  <div class="w">
+    <div class="repurpose-layout">
+      <div>
+        <div class="tag">Content multiplication</div>
+        <h2 class="h2">One snack.<br/>Everywhere you need to be.</h2>
+        <p class="sub" style="margin-bottom:24px;">
+          Professionals who publish across multiple channels build authority 3x faster. But creating content for every platform used to mean hours of extra work.
+        </p>
+        <p class="sub" style="font-size:16px; margin-bottom:0;">
+          With earsnax™, your podcast automatically becomes a blog post and social media content — ready to share, no extra effort. Show up on every platform your audience uses, every week, without adding a single minute to your workflow.
+        </p>
+        <div class="autopilot-badge">
+          ⚡ 100% on autopilot — zero extra work
+        </div>
+      </div>
+      <div class="repurpose-visual">
+        <div class="repurpose-source">
+          <div class="repurpose-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 015 5v5a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </div>
+          <div>
+            <div class="repurpose-source-text">Your Audio Snack</div>
+            <div class="repurpose-source-sub">Studio-quality · Under 10 mins · From your phone</div>
+          </div>
+        </div>
+        <div class="repurpose-arrow-wrap">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </div>
+        <div class="repurpose-outputs">
+          <div class="repurpose-out">
+            <div class="out-label">🎙️ Podcast</div>
+            <div class="out-desc">Spotify, Apple, YouTube, Amazon</div>
+          </div>
+          <div class="repurpose-out">
+            <div class="out-label">📝 Blog Post</div>
+            <div class="out-desc">SEO-ready article, auto-generated</div>
+          </div>
+          <div class="repurpose-out">
+            <div class="out-label">💼 LinkedIn</div>
+            <div class="out-desc">Engagement-optimized post</div>
+          </div>
+          <div class="repurpose-out">
+            <div class="out-label">🐦 Social Posts</div>
+            <div class="out-desc">Twitter/X thread + more</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ VOICE OPTIONS ════ -->
+<section>
+  <div class="w">
+    <div class="centered">
+      <div class="tag">Your voice, your way</div>
+      <h2 class="h2">Three paths to professional audio</h2>
+      <p class="sub">Every option sounds like you hired a studio.</p>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card glass">
+        <div class="voice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 015 5v5a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </div>
+        <h3>Record</h3>
+        <p>Grab your phone. Talk for 2 minutes. earsnax™'s AI mastering turns imperfect mobile audio into broadcast-quality sound. Car, coffee shop, kitchen — anywhere works.</p>
+      </div>
+      <div class="voice-card glass-blue">
+        <div class="voice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Voice Clone</h3>
+        <p>Train earsnax™ on your voice once. Then publish daily just by typing — it speaks in your authentic tone, cadence, and style. Your voice, without you ever picking up a mic again.</p>
+      </div>
+      <div class="voice-card glass">
+        <div class="voice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <h3>AI Actors</h3>
+        <p>Choose from premium human-quality voices for interview formats, stories, or lessons. Perfect when you want a co-host feel without booking one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHO IT'S FOR ════ -->
+<section class="who-bg">
+  <div class="w">
+    <div class="centered">
+      <div class="tag">Built for professionals like you</div>
+      <h2 class="h2">If you have expertise,<br/>earsnax turns it into authority</h2>
+      <p class="sub">Especially powerful for professionals where top-of-mind awareness directly drives business.</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-card glass">
+        <div class="who-emoji">🏡</div>
+        <div class="who-type">Real Estate Agents</div>
+        <div class="who-desc">Stay top of mind in your market. When a homeowner decides to sell, they call the agent they've been hearing from — not the one who quit after 10 episodes.</div>
+      </div>
+      <div class="who-card glass">
+        <div class="who-emoji">💼</div>
+        <div class="who-type">Consultants</div>
+        <div class="who-desc">Share client insights between engagements. Keep prospects warm between pitches. Build a reputation that makes the close easier.</div>
+      </div>
+      <div class="who-card glass">
+        <div class="who-emoji">🎯</div>
+        <div class="who-type">Coaches &amp; Trainers</div>
+        <div class="who-desc">Turn your methodology into must-listen audio. Build an audience that arrives already sold on your approach before the discovery call.</div>
+      </div>
+      <div class="who-card glass">
+        <div class="who-emoji">⚡</div>
+        <div class="who-type">Solopreneurs</div>
+        <div class="who-desc">Build authority without a marketing team. Compete with bigger brands by showing up consistently every single week.</div>
+      </div>
+      <div class="who-card glass">
+        <div class="who-emoji">✍️</div>
+        <div class="who-type">Newsletter Writers</div>
+        <div class="who-desc">Add an audio dimension to your existing audience. Reach subscribers who prefer listening to reading — without doubling your workload.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ TESTIMONIALS ════ -->
+<section class="t-bg">
+  <div class="w">
+    <div class="centered">
+      <div class="tag">From early users</div>
+      <h2 class="h2">Professionals already building<br/>authority with earsnax</h2>
+      <p class="sub">These are early access users sharing what earsnax has meant for their consistency.</p>
+    </div>
+    <div class="t-grid">
+      <div class="t-card glass">
+        <div class="t-avatar">DV</div>
+        <p class="t-quote">"As a real estate agent, staying top of mind in my market is everything. earsnax™ lets me publish weekly market updates my clients actually look forward to. It's changed how they see me."</p>
+        <div class="t-name">David VanSteenkiste</div>
+        <div class="t-title">Real Estate Agent</div>
+        <div class="t-result">Publishing every week for 3 months</div>
+      </div>
+      <div class="t-card glass-blue">
+        <div class="t-avatar">JL</div>
+        <p class="t-quote">"I used to publish maybe once a month when I had time. Now I publish three times a week with zero stress. The consistency alone has doubled my inbound leads in 60 days."</p>
+        <div class="t-name">Jordan Lee</div>
+        <div class="t-title">Real Estate Agent</div>
+        <div class="t-result">2x inbound leads in 60 days</div>
+      </div>
+      <div class="t-card glass">
+        <div class="t-avatar">MT</div>
+        <p class="t-quote">"I turned a client debrief into a polished snack in 7 minutes. It sounds like I hired a studio. My clients are now sharing it with their networks — I never expected that."</p>
+        <div class="t-name">Maya Torres</div>
+        <div class="t-title">Growth Consultant</div>
+        <div class="t-result">Published first snack in 9 mins</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ BETA SIGNUP FORM ════ -->
+<section id="claim" style="background: linear-gradient(135deg, #0d1a33 0%, #0F172A 100%); border-top: 1px solid rgba(0,163,255,0.12); border-bottom: 1px solid rgba(0,163,255,0.12);">
+  <div class="w">
+    <div style="max-width:640px; margin:0 auto; text-align:center;">
+      <div class="offer-badge" style="margin-bottom:20px;">⚡ Secure Your Beta Spot — 200 Founding Members Only</div>
+      <h2 class="h2">Claim your 50% founder discount<br/>before the beta closes.</h2>
+      <p class="sub" style="margin:16px auto 40px; text-align:center;">
+        Enter your details below and we'll reach out with early access and your lifetime discount. No credit card required — just your seat in line.
+      </p>
+
+      <!-- FORM -->
+      <form id="betaForm" style="display:flex; flex-direction:column; gap:16px; text-align:left;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div>
+            <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--g400); margin-bottom:8px;">Full Name *</label>
+            <input id="fname" type="text" placeholder="Jane Smith" required
+              style="width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; font-size:15px; color:var(--fg); outline:none; font-family:'Inter',sans-serif; transition:border-color .2s;"
+              onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'" />
+          </div>
+          <div>
+            <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--g400); margin-bottom:8px;">Email Address *</label>
+            <input id="femail" type="email" placeholder="jane@example.com" required
+              style="width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; font-size:15px; color:var(--fg); outline:none; font-family:'Inter',sans-serif; transition:border-color .2s;"
+              onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'" />
+          </div>
+        </div>
+        <div>
+          <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--g400); margin-bottom:8px;">Your Industry *</label>
+          <select id="findustry" required
+            style="width:100%; background:#1E293B; border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; font-size:15px; color:var(--fg); outline:none; font-family:'Inter',sans-serif; appearance:none; cursor:pointer; transition:border-color .2s; background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%2294A3B8%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>'); background-repeat:no-repeat; background-position:right 16px center;"
+            onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+            <option value="" disabled selected style="color:var(--g500);">Select your industry…</option>
+            <option value="Real Estate">Real Estate</option>
+            <option value="Consultant">Consultant</option>
+            <option value="Coach/Trainer">Coach/Trainer</option>
+            <option value="Solopreneur">Solopreneur</option>
+            <option value="Newsletter Writer">Newsletter Writer</option>
+            <option value="Author">Author</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" id="submitBtn"
+          style="width:100%; padding:18px; font-size:17px; font-weight:800; color:#fff; border:none; border-radius:14px; background:linear-gradient(135deg,var(--navy),var(--blue)); box-shadow:0 12px 30px rgba(0,163,255,0.35); cursor:pointer; font-family:'Montserrat',sans-serif; transition:transform .2s, box-shadow .2s; margin-top:4px;"
+          onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 18px 40px rgba(0,163,255,0.45)'"
+          onmouseout="this.style.transform='';this.style.boxShadow='0 12px 30px rgba(0,163,255,0.35)'">
+          Claim My Beta Spot — 50% Off For Life →
+        </button>
+
+        <p style="font-size:12px; color:var(--g600); text-align:center; margin-top:4px;">
+          🔒 No credit card required &nbsp;·&nbsp; No spam, ever &nbsp;·&nbsp; Unsubscribe anytime
+        </p>
+      </form>
+
+      <!-- Success state -->
+      <div id="formSuccess" style="display:none; text-align:center; padding:40px 24px;">
+        <div style="font-size:52px; margin-bottom:16px;">🎉</div>
+        <h3 style="font-family:'Montserrat',sans-serif; font-size:26px; font-weight:900; margin-bottom:12px;">You're in! Welcome to the founding crew.</h3>
+        <p style="font-size:16px; color:var(--g400); line-height:1.7;">We'll be in touch shortly with your early access details and 50% founder discount. Keep an eye on your inbox.</p>
+      </div>
+
+      <!-- Error state -->
+      <div id="formError" style="display:none; margin-top:12px; background:rgba(244,63,94,0.08); border:1px solid rgba(244,63,94,0.2); border-radius:10px; padding:14px 18px; font-size:14px; color:#F87171; text-align:center;">
+        Something went wrong. Please try again or email us directly at <strong>hello@earsnax.com</strong>.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section>
+  <div class="w">
+    <div class="centered">
+      <div class="tag">Your questions answered</div>
+      <h2 class="h2">Everything you need to know<br/>before claiming your spot</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Will my audio actually sound professional, even from my phone?
+          <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">Yes — that's the core of what earsnax does. Our AI mastering engine was built specifically to clean up mobile audio: background noise, room echo, uneven levels, mic handling — all of it gets processed automatically. The result is broadcast-quality audio your audience will assume cost you a studio session. You don't need a $2,000 microphone. Your phone is enough.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What if I run out of ideas or don't know what to say?
+          <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">This is exactly what earsnax's AI creative partner was built for. You never have to face a blank page. Give it your niche, your audience, and your goal — it generates topic ideas, helps you develop your angle, and shapes your rough thoughts into a compelling script. Many users report that having a creative partner actually makes publishing <strong>fun</strong>, not a chore.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What does earsnax™ cost? What's the beta deal exactly?
+          <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">The beta offer is exclusive to the <strong>Creator Package</strong> — earsnax™'s flagship plan that gives you access to almost the entire feature set. Beta founders get <strong>50% off the prevailing Creator Package price for life</strong>, as long as they maintain their subscription. This offer is available only to the first 200 beta founders and closes when those spots are gone.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How long does it actually take to publish a snack?
+          <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">Most users publish their first snack in under 10 minutes. That includes ideation, scripting, recording or voice generation, mastering, and publishing to all platforms simultaneously. After you've done it a few times, the entire workflow from idea to live snack takes closer to 7 minutes. Compare that to the 6–8 hours a traditional podcast episode requires.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is there a contract? What if I want to cancel?
+          <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">earsnax™ is available <strong>month-to-month with no contract</strong>, or on an <strong>annual subscription for a substantial discount</strong>. Your beta founder discount (50% off the prevailing Creator Package price) is locked in as long as you maintain your subscription — it does not apply if you cancel and resubscribe later. No setup fees, no hidden costs.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ BETA OFFER ════ -->
+<section class="offer-section">
+  <div class="offer-glow"></div>
+  <div class="offer-inner">
+    <div class="offer-badge">⚡ Beta Founder Offer — Closing Soon</div>
+    <h2 class="offer-title">
+      Lock in <span class="y">50% off</span><br/>every month. Forever.
+    </h2>
+    <p class="offer-sub">
+      Beta founders get half off the prevailing price of any earsnax plan — for as long as you're a customer. No exceptions. No expiry. This offer disappears the moment the 200 beta spots are gone.
+    </p>
+    <div class="offer-cards">
+      <div class="offer-card">
+        <div class="offer-card-label">Your discount</div>
+        <div class="offer-card-value y">50% Off</div>
+        <div class="offer-card-note">On the Creator Plan, now and always</div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-card-label">Duration</div>
+        <div class="offer-card-value">Forever</div>
+        <div class="offer-card-note">50% of the prevailing Creator Package price, for life</div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-card-label">Spots left</div>
+        <div class="offer-card-value r">67</div>
+        <div class="offer-card-note">Of 200 total beta founding slots</div>
+      </div>
+    </div>
+    <div class="offer-math-box">
+      At standard pricing, earsnax™ saves you the cost of a studio, an editor, and a content team every month.<br/>
+      As a beta founder at 50% off, you're looking at <strong>$474+ in savings every single year — forever.</strong>
+    </div>
+    <a href="#claim" class="btn-offer">Claim My Beta Spot Now →</a>
+    <p class="no-risk">No studio needed &nbsp;·&nbsp; No long-term contract &nbsp;·&nbsp; Cancel anytime</p>
+    <div class="offer-sc-wrap">
+      <div class="sc-labels">
+        <span>Beta spots filling</span>
+        <span class="urgent">Moving fast — 67 left</span>
+      </div>
+      <div class="sc-track"><div class="sc-fill"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="footer-logo">
+    <img src="./earsnax-logo-tm.png" alt="earsnax™" onerror="this.src='./public/earsnax-logo-tm.png';" />
+  </div>
+  <p class="footer-tagline">Bite-sized audio for big ideas</p>
+  <p class="footer-copy">© 2026 earsnax. All rights reserved.</p>
+</footer>
+
+<script>
+  // ── FAQ accordion ──
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── Beta signup form → Google Sheet ──
+  // STEP: Replace the URL below with your deployed Google Apps Script Web App URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzL-1XJ4QbPh3jII95WQ0jMnR41gs-4kEUGqEQ4xP5ziCoSuHzk5ECcbuwwKQgp3eak/exec";
+
+  document.getElementById('betaForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const errorDiv = document.getElementById('formError');
+    errorDiv.style.display = 'none';
+
+    const name     = document.getElementById('fname').value.trim();
+    const email    = document.getElementById('femail').value.trim();
+    const industry = document.getElementById('findustry').value;
+
+    if (!name || !email || !industry) return;
+
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, industry, timestamp: new Date().toISOString() })
+      });
+      // no-cors means we can't read the response, but if we get here without throwing it worked
+      document.getElementById('betaForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    } catch (err) {
+      errorDiv.style.display = 'block';
+      btn.textContent = 'Claim My Beta Spot — 50% Off For Life →';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+    }
+  });
+</script>
+
+</body>
+</html>
